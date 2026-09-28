@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct Transaction{
     int id;
@@ -11,7 +12,8 @@ struct Transaction{
 };
 
 struct Transaction transactions[100];
-int transactionsCount = 0;
+void addIncome();
+int transactionCount = 0;
 void displayMenu();
 
 int main(){
@@ -27,7 +29,7 @@ int main(){
         switch(choice){
 
             case 1:
-               printf("Add Income\n");
+               addIncome();
                break;
 
             case 2:
@@ -62,6 +64,35 @@ int main(){
     return 0;
 }
 
+//add income & store transaction data
+void addIncome(){
+
+    double amount;
+    char source[50];
+    char date[20];
+
+    printf("Enter income amount: ");
+    scanf("%lf",&amount);
+    printf("Enter income source: ");
+    scanf("%49s",source);
+    printf("Enter date: ");
+    scanf("%19s",date);
+
+    //create transaction ID
+    transactions[transactionCount].id = transactionCount + 1;
+
+    //save data into Transaction
+    strcpy(transactions[transactionCount].type, "Income");
+    strcpy(transactions[transactionCount].category, source);
+    transactions[transactionCount].amount = amount;
+    strcpy(transactions[transactionCount].date, date);
+
+    transactionCount++;
+
+    printf("Income added successfully!\n");
+}
+
+//display output
 void displayMenu(){
     printf("\n=============================\n");
     printf("   MONEY MANAGEMENT SYSTEM\n");
