@@ -15,6 +15,7 @@ struct Transaction transactions[100];
 void addIncome();
 int transactionCount = 0;
 void addExpense();
+void displayTransactionsDetails();
 void displayMenu();
 
 int main(){
@@ -38,7 +39,7 @@ int main(){
                break;
 
             case 3:
-                printf("View Transactions\n");
+                displayTransactionsDetails();
                 break;
 
             case 4:
@@ -123,6 +124,34 @@ void addExpense(){
     transactionCount++;
 
     printf("Expense added successfully!\n");
+}
+
+//display Transactions
+void displayTransactionsDetails(){
+
+    if(transactionCount == 0){
+        printf("No transactions found.\n");
+        return;
+    }         
+
+    printf("\n=============================\n");
+    printf("     ALL TRANSACTIONS\n");
+    printf("============================\n");
+
+    for(int i=0; i<transactionCount; i++){
+        printf("ID: %d\n",transactions[i].id);
+        printf("Type: %s\n",transactions[i].type);
+        printf("Category: %s\n",transactions[i].category);
+    
+
+        if(strcmp(transactions[i].type, "Expense") == 0){
+              printf("Description: %s\n",transactions[i].description);
+         }
+
+        printf("Amount: %.2f\n",transactions[i].amount);
+        printf("Date: %s\n",transactions[i].date);
+        printf("---------------------------------\n");
+    }
 }
 
 //display output
