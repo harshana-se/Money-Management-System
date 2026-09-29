@@ -14,6 +14,7 @@ struct Transaction{
 struct Transaction transactions[100];
 void addIncome();
 int transactionCount = 0;
+void addExpense();
 void displayMenu();
 
 int main(){
@@ -33,7 +34,7 @@ int main(){
                break;
 
             case 2:
-               printf("Add Expense\n");
+               addExpense();
                break;
 
             case 3:
@@ -74,7 +75,7 @@ void addIncome(){
     printf("Enter income amount: ");
     scanf("%lf",&amount);
     printf("Enter income source: ");
-    scanf("%49s",source);
+    scanf(" %49[^\n]",source);
     printf("Enter date: ");
     scanf("%19s",date);
 
@@ -90,6 +91,38 @@ void addIncome(){
     transactionCount++;
 
     printf("Income added successfully!\n");
+}
+
+//add expences & store transaction data
+void addExpense(){
+
+    double amount;
+    char category[50];
+    char description[150];
+    char date[20];
+
+    printf("Enter expences amount: ");
+    scanf("%lf",&amount);
+    printf("Enter expences category: ");
+    scanf("%49s",category);
+    printf("Enter description: ");
+    scanf(" %149[^\n]",description);
+    printf("Enter date: ");
+    scanf("%19s",date);
+
+    //create transaction ID
+    transactions[transactionCount].id = transactionCount + 1;
+
+    //save data into Transaction
+    strcpy(transactions[transactionCount].type, "Expense");
+    strcpy(transactions[transactionCount].category, category);
+    strcpy(transactions[transactionCount].description, description);
+    transactions[transactionCount].amount = amount;
+    strcpy(transactions[transactionCount].date, date);
+
+    transactionCount++;
+
+    printf("Expense added successfully!\n");
 }
 
 //display output
