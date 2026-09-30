@@ -263,8 +263,6 @@ void displayBudget(){
 //save Transactions to File
 void saveTransactions(){
 
-    printf("saveTransactions() function called.\n");
-
     FILE *file;
     file = fopen("transactions.txt","w");
 
@@ -272,8 +270,6 @@ void saveTransactions(){
         printf("Error opening transaction file!\n");
         return;
     }
-
-    printf("Transaction file opened successfully!\n");
 
     for(int i=0; i<transactionCount; i++){
         fprintf(file, "%d|%s|%s|%s|%.2f|%s\n", transactions[i].id,
