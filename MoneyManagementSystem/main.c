@@ -12,19 +12,27 @@ struct Transaction{
 };
 
 struct Transaction transactions[100];
-void addIncome();
+
 int transactionCount = 0;
 double monthlyBudget = 0;
+
+void addIncome();
 void addExpense();
 void displayTransactionsDetails();
 void displayBalance();
 void setMonthlyBudget();
 void displayBudget();
+
+void saveTransactions();
+void loadTransactions();
+
 void displayMenu();
 
 int main(){
 
     int choice;
+
+    loadTransactions();
 
     do{
         displayMenu();
@@ -105,10 +113,12 @@ void addIncome(){
     //save data into Transaction
     strcpy(transactions[transactionCount].type, "Income");
     strcpy(transactions[transactionCount].category, source);
+    strcpy(transactions[transactionCount].description, "-");
     transactions[transactionCount].amount = amount;
     strcpy(transactions[transactionCount].date, date);
 
     transactionCount++;
+    saveTransactions();
 
     printf("Income added successfully!\n");
 }
@@ -141,6 +151,7 @@ void addExpense(){
     strcpy(transactions[transactionCount].date, date);
 
     transactionCount++;
+    saveTransactions();
 
     printf("Expense added successfully!\n");
 }
@@ -247,4 +258,62 @@ void displayBudget(){
     printf("Total Expenses: %.2f\n",totalExpense);
     printf("Remaining Budget: %.2f\n",remainingBudget);
     printf("============================\n");
+}
+
+//save Transactions to File
+void saveTransactions(){
+
+    printf("saveTransactions() function called.\n");
+
+    FILE *file;
+    file = fopen("transactions.txt","w");
+
+    if(file == NULL){
+        printf("Error opening transaction file!\n");
+        return;
+    }
+
+    printf("Transaction file opened successfully!\n");
+
+    for(int i=0; i<transactionCount; i++){
+        fprintf(file, "%d|%s|%s|%s|%.2f|%s\n", transactions[i].id,
+                                               transactions[i].type,
+                                               transactions[i].category,
+                                               transactions[i].description,
+                                               transactions[i].amount,
+                                               transactions[i].date);
+    }
+
+    fclose(file);
+    printf("Transactions saved successfully!\n");
+}
+
+//load Transactions from File
+void loadTransactions(){
+
+    FILE *file;
+    file = fopen("transactions.txt","r");
+
+    if(file == NULL){
+        printf("No previous transaction data found.\n");
+        return;
+    }
+
+    transactionCount = 0;
+
+    while(transactionCount<100 && fscanf(file,
+             "%d|%19[^|]|%29[^|]|%149[^|]|%lf|%19s",
+             &transactions[transactionCount].id,
+             transactions[transactionCount].type,
+             transactions[transactionCount].category,
+             transactions[transactionCount].description,
+             &transactions[transactionCount].amount,
+             transactions[transactionCount].date)==6){
+        
+        transactionCount++;
+    }
+    
+    fclose(file);
+
+    printf("%d previous transaction(s) loaded successfully.\n",transactionCount);
 }
