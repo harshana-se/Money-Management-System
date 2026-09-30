@@ -281,7 +281,6 @@ void saveTransactions(){
     }
 
     fclose(file);
-    printf("Transactions saved successfully!\n");
 }
 
 //load Transactions from File

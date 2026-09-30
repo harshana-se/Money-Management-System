@@ -1,3 +1,4 @@
 1|Income|Job|-|6000.00|30/29/2026
 2|Expense|Food|Breakfast at university|150.00|30/09/2026
 3|Expense|Transport|Maharagama - Mathugama|280.00|30/09/2026
+4|Expense|Transport|Mathugama - Baduraliya|120.00|30/09/2026
