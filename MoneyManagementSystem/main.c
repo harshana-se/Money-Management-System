@@ -19,6 +19,7 @@ void addExpense();
 void displayTransactionsDetails();
 void displayBalance();
 void setMonthlyBudget();
+void displayBudget();
 void displayMenu();
 
 int main(){
@@ -54,7 +55,7 @@ int main(){
                 break;
 
             case 6:
-                printf("View Budget\n");
+                displayBudget();
                 break;
 
             case 7:
@@ -218,4 +219,32 @@ void setMonthlyBudget(){
             break;
         }
     }while(monthlyBudget<0);
+}
+
+//display Budget
+void displayBudget(){
+
+    if(monthlyBudget <= 0){
+        printf("Monthly budget has not been set.\n");
+        return;
+    }
+
+    double totalExpense = 0;
+
+    for(int i=0; i<transactionCount; i++){
+
+        if(strcmp(transactions[i].type, "Expense")==0){
+            totalExpense += transactions[i].amount;
+        }
+    }
+
+    double remainingBudget = monthlyBudget - totalExpense;
+
+    printf("\n=============================\n");
+    printf("          Budget\n");
+    printf("============================\n");
+    printf("Monthly Budget: %.2f\n",monthlyBudget);
+    printf("Total Expenses: %.2f\n",totalExpense);
+    printf("Remaining Budget: %.2f\n",remainingBudget);
+    printf("============================\n");
 }
