@@ -16,6 +16,7 @@ void addIncome();
 int transactionCount = 0;
 void addExpense();
 void displayTransactionsDetails();
+void displayBalance();
 void displayMenu();
 
 int main(){
@@ -43,7 +44,7 @@ int main(){
                 break;
 
             case 4:
-                printf("View Balance\n");
+                displayBalance();
                 break;
 
             case 5:
@@ -64,6 +65,21 @@ int main(){
     } while(choice != 7);
 
     return 0;
+}
+
+//display output
+void displayMenu(){
+    printf("\n=============================\n");
+    printf("   MONEY MANAGEMENT SYSTEM\n");
+    printf("=============================\n");
+    printf("1. Add Income\n");
+    printf("2. Add Expense\n");
+    printf("3. View Transactions\n");
+    printf("4. View Balance\n");
+    printf("5. Set Monthly Budget\n");
+    printf("6. View Budget\n");
+    printf("7. Exit\n");
+    printf("=============================\n");
 }
 
 //add income & store transaction data
@@ -154,17 +170,32 @@ void displayTransactionsDetails(){
     }
 }
 
-//display output
-void displayMenu(){
+//calculate & display Balance
+void displayBalance(){
+
+    double amount;
+    double totalIncome = 0;
+    double totalExpense = 0;
+    
     printf("\n=============================\n");
-    printf("   MONEY MANAGEMENT SYSTEM\n");
-    printf("=============================\n");
-    printf("1. Add Income\n");
-    printf("2. Add Expense\n");
-    printf("3. View Transactions\n");
-    printf("4. View Balance\n");
-    printf("5. Set Monthly Budget\n");
-    printf("6. View Budget\n");
-    printf("7. Exit\n");
-    printf("=============================\n");
+    printf("          BALANCE\n");
+    printf("============================\n");
+
+    for(int i=0; i<transactionCount; i++){
+
+        if(strcmp(transactions[i].type, "Income")==0){
+            totalIncome += transactions[i].amount;
+        }
+
+        if(strcmp(transactions[i].type, "Expense")==0){
+            totalExpense += transactions[i].amount;
+        }
+    }
+
+    double balance = totalIncome - totalExpense;
+
+    printf("Total Income: %.2f\n",totalIncome);
+    printf("Total Expense: %.2f\n",totalExpense);
+    printf("Current Balance: %.2f\n",balance);
+    printf("============================\n");
 }
