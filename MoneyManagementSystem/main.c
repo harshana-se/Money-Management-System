@@ -14,9 +14,11 @@ struct Transaction{
 struct Transaction transactions[100];
 void addIncome();
 int transactionCount = 0;
+double monthlyBudget = 0;
 void addExpense();
 void displayTransactionsDetails();
 void displayBalance();
+void setMonthlyBudget();
 void displayMenu();
 
 int main(){
@@ -48,7 +50,7 @@ int main(){
                 break;
 
             case 5:
-                printf("Set Monthly Budget\n");
+                setMonthlyBudget();
                 break;
 
             case 6:
@@ -198,4 +200,22 @@ void displayBalance(){
     printf("Total Expense: %.2f\n",totalExpense);
     printf("Current Balance: %.2f\n",balance);
     printf("============================\n");
+}
+
+//set Monthly Budget
+void setMonthlyBudget(){
+
+    do{
+        printf("Enter Monthly Budget: ");
+        scanf("%lf",&monthlyBudget);
+
+        if(monthlyBudget<0){
+            printf("\nBudget cannot be negative. Enter Valid Budget!\n");
+            continue;
+        }
+        else{
+            printf("\nMonthly Budget set successfully!\n");
+            break;
+        }
+    }while(monthlyBudget<0);
 }
