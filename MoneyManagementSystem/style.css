@@ -107,3 +107,88 @@ header{
 .form_container button:hover{
     opacity: 0.8;
 }
+
+.transaction_history{
+    margin-top: 30px;
+}
+
+.transaction_history{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.transaction_history th, .transaction_history td{
+    padding:10px;
+    border:1px solid;
+    text-align:left;
+}
+
+.transaction_history th{
+    background-color:#f5f5f5;
+}
+
+.budget_section{
+    margin-top: 30px;
+}
+
+.budget_info{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.budget_item{
+    width:200px;
+    padding:20px;
+    border: 1px solid;
+    border-radius:8px;
+    box-sizing: border-box;
+    background-color:#f5f5f5;
+}
+
+.budget_item h3{
+    margin-top:0;
+    margin-bottom:15px;
+}
+
+.budget_item p{
+    margin:0;
+    font-size:20px;
+}
+
+@media (max-width:768px){
+
+    .page_layout{
+        flex-direction: column;
+    }
+    
+    .navigation{
+        width:auto;
+        flex-direction: row;
+    }
+
+    .navigation a{
+        margin-bottom: 0;
+        margin-right: 15px;
+    }
+
+    .card{
+        width: 100%;
+    }
+
+    .form_container{
+        width: 100%;
+    }
+
+    .budget_item{
+        width: 100%;
+    }
+
+    .main_content{
+        padding:15px;
+    }
+}
+
+.table_container{
+    overflow-x:auto;
+}
