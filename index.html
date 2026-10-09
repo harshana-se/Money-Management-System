@@ -13,7 +13,7 @@
 <body>
     
     <header>
-        <h1>Money Management System</h1>
+        <h1 id="page-title">Money Management System</h1>
     </header>
 
     <div class="page_layout">
@@ -31,7 +31,7 @@
 
             <div class="card">
                 <h3>Current Balance</h3>
-                <p>Rs. 14,570.00</p>
+                <p id="current-balance">Rs. 14,570.00</p>
             </div>
 
             <div class="card">
@@ -54,7 +54,7 @@
         <section class="transaction_forms">
 
             <div class="form_container">
-                <form>
+                <form id="income-form">
                     <h3>Add Income</h3>
 
                     <label for="income_amount">Amount</label>
@@ -72,7 +72,7 @@
 
             <div class="form_container">
 
-                <form>
+                <form id="expense-form">
                     <h3>Add Expense</h3>
 
                     <label for="expense_amount">Amount</label>
@@ -158,6 +158,8 @@
 
     </main>
     </div>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
