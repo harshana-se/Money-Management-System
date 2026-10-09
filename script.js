@@ -32,7 +32,7 @@ incomeForm.addEventListener("submit",function(event){
         type: "Income",
         category: source.trim(),
         description: source.trim(),
-        amount: incomeAmountInput,
+        amount: amount,
         date: date
     };
     transactions.push(transaction);
