@@ -1,54 +1,3 @@
-console.log("Welcome to Money Management System");
-
-let monthlyBudget = 15000;
-const currency = "LKR";
-console.log(monthlyBudget);
-console.log(currency);
-
-let income = 15000;
-let expense = 430;
-let description = "Monthly salary";
-let isIncome = true;
-let transactionDate = null;
-
-function calculateBalance(income, expense){
-    let result = income - expense;
-    return result;
-}
-
-let currentBalance = calculateBalance(income, expense);
-console.log(currentBalance);
-
-const transactions = [
-
-    {
-        id: 1,
-        type: "Income",
-        category: "Salary",
-        description: "Monthly salary",
-        amount: 15000,
-        date: "2026-10-01"
-    },
-
-    {
-        id: 2,
-        type: "Expense",
-        category: "Food",
-        description: "Lunch",
-        amount: 430,
-        date: "2026-10-02"
-    }
-
-];
-
-const pageTitle = document.getElementById("page-title");
-console.log(pageTitle);
-pageTitle.textContent = "Money Management System";
-
-const balanceDisplay = document.getElementById("current-balance");
-balanceDisplay.textContent = "Rs. 14,570.00";
-
-
 //income form
 const incomeAmountInput = document.getElementById("income_amount");
 console.log(incomeAmountInput.value);
@@ -78,9 +27,17 @@ incomeForm.addEventListener("submit",function(event){
         return;
     }
 
-    console.log("Income Amount:", amount);
-    console.log("Income Source:", source);
-    console.log("Income Date:", date);
+    const transaction = {
+        id: transactions.length +1,
+        type: "Income",
+        category: source.trim(),
+        description: source.trim(),
+        amount: incomeAmountInput,
+        date: date
+    };
+    transactions.push(transaction);
+    renderTransactions();
+    incomeForm.reset();
 });
 
 
@@ -118,9 +75,45 @@ expenseForm.addEventListener("submit", function (event) {
         return;
     }
 
-    console.log("Expense Amount:", amount);
-    console.log("Expense Category:", category);
-    console.log("Expense Description:", description);
-    console.log("Expense Date:", date);
+    const transaction ={
+        id: transactions.length +1,
+        type: "Expense",
+        category: category.trim(),
+        description: description.trim(),
+        amount: amount,
+        date: date
+    };
+    transactions.push(transaction);
+    renderTransactions();
+    expenseForm.reset();
 });
+
+//transactions store
+const transactions = [];
+
+const transactionList = document.getElementById("transaction-list");
+
+function renderTransactions(){
+    transactionList.innerHTML = "";
+
+    if(transactions.length === 0){
+        transactionList.innerHTML = `<tr>
+                                         <td colspan="6"> NO transaction found.</td> 
+                                     </tr>`;
+        return;
+    }
+
+    transactions.forEach(function(transaction){
+        const row = document.createElement("tr");
+
+        row.innerHTML = `<td>${transaction.id}</td>
+                         <td>${transaction.type}</td>
+                         <td>${transaction.category}</td>
+                         <td>${transaction.description}</td>
+                         <td>${transaction.amount}</td>
+                         <td>${transaction.date}</td>`;
+        
+        transactionList.appendChild(row);
+    });
+}
 
