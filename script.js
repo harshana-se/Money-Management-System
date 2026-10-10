@@ -36,6 +36,11 @@ incomeForm.addEventListener("submit",function(event){
         date: date
     };
     transactions.push(transaction);
+
+    console.log("Updated Total Income:", calculateTotalIncome());
+    console.log("Updated Balance:", calculateBalance());
+
+    updateDashboard();
     renderTransactions();
     incomeForm.reset();
 });
@@ -84,9 +89,16 @@ expenseForm.addEventListener("submit", function (event) {
         date: date
     };
     transactions.push(transaction);
+
+    console.log("Updated Total Expenses:", calculateTotalExpense());
+    console.log("Updated Balance:", calculateBalance());
+    console.log("Updated Remaining Budget:", calculateRemainingBudget(15000));
+
+    updateDashboard();
     renderTransactions();
     expenseForm.reset();
 });
+
 
 //transactions store
 const transactions = [];
@@ -98,7 +110,7 @@ function renderTransactions(){
 
     if(transactions.length === 0){
         transactionList.innerHTML = `<tr>
-                                         <td colspan="6"> NO transaction found.</td> 
+                                         <td colspan="6"> No transactions found.</td> 
                                      </tr>`;
         return;
     }
@@ -117,3 +129,63 @@ function renderTransactions(){
     });
 }
 
+
+//calculate total Income
+function calculateTotalIncome(){
+    return transactions.reduce(function(total, transaction){
+        if(transaction.type === "Income"){
+            return total + transaction.amount;
+        }
+        return total;
+    },0);
+}
+console.log("Initial Total Income:", calculateTotalIncome());
+
+
+//calculate total Expense
+function calculateTotalExpense(){
+    return transactions.reduce(function(total, transaction){
+        if(transaction.type === "Expense"){
+            return total + transaction.amount;
+        }
+        return total;
+    },0);
+}
+console.log("Initial Total Expense:", calculateTotalExpense());
+
+
+//calculate Balance
+function calculateBalance(){
+    return calculateTotalIncome() - calculateTotalExpense();
+}
+console.log("Current Balance:", calculateBalance());
+
+
+//calculate remaining Budget
+function calculateRemainingBudget(monthlyBudget){
+    return monthlyBudget - calculateTotalExpense();
+}
+console.log("Remaining Budget:", calculateRemainingBudget(15000));
+
+
+//select card
+const currentBalanceElement = document.getElementById("current-balance");
+const totalIncomeElement = document.getElementById("total-income");
+const totalExpenseElement = document.getElementById("total-expense");
+const remainingBudgetElement = document.getElementById("remaining-budget");
+
+
+//dashboard Update
+function updateDashboard(){
+    const totalIncome = calculateTotalIncome();
+    const totalExpenses = calculateTotalExpense();
+    const balance = calculateBalance();
+    const remainingBudget = calculateRemainingBudget(20000);
+
+    currentBalanceElement.textContent = "Rs. " + balance.toFixed(2);
+    totalIncomeElement.textContent = "Rs. " + totalIncome.toFixed(2);
+    totalExpenseElement.textContent = "Rs. " + totalExpenses.toFixed(2);
+    remainingBudgetElement.textContent = "Rs. " + remainingBudget.toFixed(2);
+} 
+
+updateDashboard();
