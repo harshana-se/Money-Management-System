@@ -36,10 +36,6 @@ incomeForm.addEventListener("submit",function(event){
         date: date
     };
     transactions.push(transaction);
-
-    console.log("Updated Total Income:", calculateTotalIncome());
-    console.log("Updated Balance:", calculateBalance());
-
     updateDashboard();
     renderTransactions();
     incomeForm.reset();
@@ -89,11 +85,6 @@ expenseForm.addEventListener("submit", function (event) {
         date: date
     };
     transactions.push(transaction);
-
-    console.log("Updated Total Expenses:", calculateTotalExpense());
-    console.log("Updated Balance:", calculateBalance());
-    console.log("Updated Remaining Budget:", calculateRemainingBudget(15000));
-
     updateDashboard();
     renderTransactions();
     expenseForm.reset();
@@ -139,7 +130,6 @@ function calculateTotalIncome(){
         return total;
     },0);
 }
-console.log("Initial Total Income:", calculateTotalIncome());
 
 
 //calculate total Expense
@@ -151,21 +141,18 @@ function calculateTotalExpense(){
         return total;
     },0);
 }
-console.log("Initial Total Expense:", calculateTotalExpense());
 
 
 //calculate Balance
 function calculateBalance(){
     return calculateTotalIncome() - calculateTotalExpense();
 }
-console.log("Current Balance:", calculateBalance());
 
 
 //calculate remaining Budget
 function calculateRemainingBudget(monthlyBudget){
     return monthlyBudget - calculateTotalExpense();
 }
-console.log("Remaining Budget:", calculateRemainingBudget(15000));
 
 
 //select card
@@ -180,12 +167,25 @@ function updateDashboard(){
     const totalIncome = calculateTotalIncome();
     const totalExpenses = calculateTotalExpense();
     const balance = calculateBalance();
-    const remainingBudget = calculateRemainingBudget(20000);
 
+    const monthlyBudget = Number(
+        monthlyBudgetElement.textContent.replace("Rs.","").trim()
+    );
+    const remainingBudget = calculateRemainingBudget(monthlyBudget);
+    
+    monthlyBudgetElement.textContent = "Rs. " + monthlyBudget.toFixed(2);
     currentBalanceElement.textContent = "Rs. " + balance.toFixed(2);
     totalIncomeElement.textContent = "Rs. " + totalIncome.toFixed(2);
     totalExpenseElement.textContent = "Rs. " + totalExpenses.toFixed(2);
     remainingBudgetElement.textContent = "Rs. " + remainingBudget.toFixed(2);
+    budgetTotalExpensesElement.textContent = "Rs. " + totalExpenses.toFixed(2);
+    budgetRemainingElement.textContent = "Rs. " + remainingBudget.toFixed(2);
 } 
+
+
+//select budget card 
+const monthlyBudgetElement = document.getElementById("monthly-budget");
+const budgetTotalExpensesElement = document.getElementById("budget-total-expenses");
+const budgetRemainingElement = document.getElementById("budget-remaining");
 
 updateDashboard();
